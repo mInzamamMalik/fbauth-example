@@ -3,36 +3,46 @@
  */
 
 
-    angular.module("mymodule",['firebase'])
-        .controller("myctrl",[abc]);
+angular.module("mymodule",['firebase'])
+    .controller("myctrl",function(dataStore){
+        var vm = this;
+        vm.profile = dataStore.profile;
+
+
+        var ref = new Firebase("https://malikasinger-fbauth.firebaseio.com");
+
+        vm.login = function(){
+            ref.authWithOAuthPopup("facebook", function(error, authData) {
+                if (error) {
+                    console.log("Login Failed!", error);
+                }else{
+                    console.log("Authenticated successfully with payload:", authData);
+
+                    //           var name = authData.facebook.cachedUserProfile.name;
+                    (function(){
+                        vm.profile = "loged in";
+                        alert(authData.facebook.cachedUserProfile.name);
+                    })()
+
+                }
+            });
+        };
+        vm.logout = function(){
+            ref.unauth();
+            vm.profile = "loged out";
+
+        }
 
 
 
 
-function abc(){
-    var ref = new Firebase("https://malikasinger-fbauth.firebaseio.com");
 
-    this.login = function(){
-        ref.authWithOAuthPopup("facebook", function(error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
-            } else {
-                console.log("Authenticated successfully with payload:", authData);
-
-                var name = authData.facebook.cachedUserProfile.name;
-            }
-        });
-        this.name = name;
-    };
-    this.logout = function(){
-        ref.unauth();
-    }
+    });
 
 
 
 
 
-}
 
 
 

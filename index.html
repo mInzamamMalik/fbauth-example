@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-
-    <script src="bower_components/angular/angular.js"></script>
-
-    <script src="bower_components/firebase/firebase.js"></script>
-    <script src="bower_components/angularfire/dist/angularfire.js"></script>
-
-    <script src="app.js"></script>
 </head>
 <body ng-app="mymodule" ng-controller="myctrl as control">
 
 <button ng-click="control.login()">login</button>
 
 {{control.name}}
+{{control.dataStore.profile}}
 
 <br/>
 <button ng-click="control.logout();">logout</button>
+
+
+
+
+<script src="bower_components/angular/angular.js"></script>
+
+<script src="bower_components/firebase/firebase.js"></script>
+<script src="bower_components/angularfire/dist/angularfire.js"></script>
+
+<script src="app.js"></script>
+<script src="service.js"></script>
 </body>
 </html>
